@@ -10,6 +10,7 @@ const registerUser = async (req: Request, res: Response) => {
     const email:String = req.body.email;    
     try {
         await pool.connect();
+        console.log("established connection with server");
         const userExists:QueryResult = await pool.query(`SELECT * FROM users WHERE email = $1`,[ email ]);
 
         if(userExists.rows.length > 0) {

@@ -15,6 +15,7 @@ const registerUser = (req, res) => __awaiter(void 0, void 0, void 0, function* (
     const email = req.body.email;
     try {
         yield pool.connect();
+        console.log("established connection with server");
         const userExists = yield pool.query(`SELECT * FROM users WHERE email = $1`, [email]);
         if (userExists.rows.length > 0) {
             return res.status(400).json({

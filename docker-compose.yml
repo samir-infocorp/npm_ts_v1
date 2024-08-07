@@ -10,27 +10,14 @@ services:
     volumes:
       - .:/usr/src/app
       - /usr/src/app/node_modules
-    depends_on:
-      - node_db
     restart: always
     environment:
       - PORT=${PORT}
       - IP=${IP}
       - DB_USER=${DB_USER}
       - DB_PASSWORD=${DB_PASSWORD}
-      - DB_HOST=${DB_HOST}
+      - DB_HOST=host.docker.internal
       - DB_PORT=${DB_PORT}
       - DB_NAME=${DB_NAME}
-  node_db: 
-    container_name: node_db
-    image: postgres:14 
-    ports:
-      - "5432:5432"
-    environment:
-      - POSTGRES_PASSWORD=Samir@3301
-      - POSTGRES_USER=${DB_USER}
-      - POSTGRES_DB=${DB_NAME}
-    volumes:
-      - node_db_data:/var/lib/postgresql/data
-volumes:
-  node_db_data: {}
+    env_file:
+      - .env
